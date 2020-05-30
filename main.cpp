@@ -3,7 +3,7 @@
 
 int main()
 {
-    Board b{10,5};
-    std::cout << "Hello World!" << std::endl;
+    Board b{100,30};
+    b.display();
     return 0;
 }

@@ -6,15 +6,15 @@
 class Board
 {
 private:
-    const char BORDER_CHAR = '*';
-    int width;
-    int height;
-    std::vector<int> content;
-    std::pair<int,int> food_pos;
+    const char BORDER_CHAR = 'X';
+    size_t width;
+    size_t height;
+    std::vector<char> content;
+    std::pair<size_t,size_t> food_pos;
     //Snake s;
 
 public:
-    Board(int width, int height);
+    Board(size_t width, size_t height);
     void display() const;
     void reset();
 };
