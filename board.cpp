@@ -2,6 +2,7 @@
 #include "utils.h"
 #include <iostream>
 
+
 Board::Board(size_t w, size_t h)
     :width_{w}, height_{h}, food_(RandomCoord(2,w-2),RandomCoord(2,h-2),FOOD_CHAR)
 {
@@ -23,6 +24,7 @@ Board::Board(size_t w, size_t h)
 
 void Board::Display_() const{
     size_t col{1};
+    system("clear");
     for(const char c: content_){
         if(c==BORDER_CHAR)
             std::cout<<kBorderColor<<c<<color_codes::kReset;
@@ -33,4 +35,10 @@ void Board::Display_() const{
         if((col++)%width_ == 0)
             std::cout<<std::endl;
     }
+}
+
+void Board::PlaceFood_(size_t x, size_t y){
+    content_.at(GetIndex(food_.GetX(),food_.GetY(),width_))=' ';
+    food_.SetPos(x,y);
+    content_.at(GetIndex(food_.GetX(),food_.GetY(),width_))=FOOD_CHAR;
 }
