@@ -7,16 +7,17 @@
 class Board
 {
 private:
-    const char BORDER_CHAR = 'X';
-    size_t width;
-    size_t height;
-    std::vector<char> content;
-    std::pair<size_t,size_t> food_pos;
-    std::string border_color;
+    const char kBorderChar_ = 'X';
+    const std::string kBorderColor_;
+    size_t width_;
+    size_t height_;
+    std::vector<char> content_;
+    std::pair<size_t,size_t> food_pos_;
+
     //Snake s;
 
 public:
-    Board(size_t width, size_t height, std::string bc=color_codes::BLUE);
+    Board(size_t width_, size_t height_, std::string bc=color_codes::kBlue);
     void display() const;
     void reset();
 };

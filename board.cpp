@@ -3,30 +3,30 @@
 #include <iostream>
 
 Board::Board(size_t w, size_t h, std::string bc)
-    :width{w}, height{h}, border_color{bc}
+    :width_{w}, height_{h}, kBorderColor_{bc}
 {
     char char_to_insert{' '};
-    content.reserve(width*height);
+    content_.reserve(width_*height_);
 
-    for(size_t y=1; y<=height; ++y){
-        for(size_t x=1; x<=width; ++x ){
-            if(x==1 || y==1 || x==width || y==height)
-                char_to_insert=BORDER_CHAR;
+    for(size_t y=1; y<=height_; ++y){
+        for(size_t x=1; x<=width_; ++x ){
+            if(x==1 || y==1 || x==width_ || y==height_)
+                char_to_insert=kBorderChar_;
             else
                 char_to_insert=' ';
-            content.push_back(char_to_insert);
+            content_.push_back(char_to_insert);
         }
     }
 }
 
 void Board::display() const{
     size_t col{1};
-    for(const char c: content){
-        if(c==BORDER_CHAR)
-            std::cout<<border_color<<c<<color_codes::RESET;
+    for(const char c: content_){
+        if(c==kBorderChar_)
+            std::cout<<kBorderColor_<<c<<color_codes::kReset;
         else
             std::cout<<c;
-        if((col++)%width == 0)
+        if((col++)%width_ == 0)
             std::cout<<std::endl;
     }
 }
