@@ -10,9 +10,13 @@ private:
     size_t x_pos_;
     size_t y_pos_;
     char display_char_;
-    std::string pixel_color_;
+    PixelType p_type_;
 public:
-    Pixel(size_t x, size_t y, char c, std::string pc=color_codes::kWhite);
+    Pixel();
+    Pixel(size_t x, size_t y, PixelType pt);
+    size_t GetX() const;
+    size_t GetY() const;
+    PixelType GetType() const;
 };
 
 #endif // PIXEL_H

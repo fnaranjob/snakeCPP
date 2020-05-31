@@ -6,7 +6,8 @@ CONFIG -= qt
 SOURCES += main.cpp \
     board.cpp \
     snake.cpp \
-    pixel.cpp
+    pixel.cpp \
+    utils.cpp
 
 HEADERS += \
     board.h \

@@ -1,6 +1,11 @@
 #ifndef UTILS_H
 #define UTILS_H
+
 #include <string>
+#include <stdlib.h>
+#include <time.h>
+
+//CONSTANTS
 
 namespace color_codes {
     const std::string kReset{"\033[0m"};
@@ -14,6 +19,16 @@ namespace color_codes {
     const std::string kWhite{"\033[37m"};
 }
 
+enum PixelType:char {SNAKE_BODY_CHAR='o', FOOD_CHAR='@', SNAKE_HEAD_CHAR='*',BORDER_CHAR='X'};
+const std::string kBorderColor = color_codes::kBlue;
+const std::string kFoodColor = color_codes::kRed;
+
+
+//UTILITY FUNCTIONS
+
+
+size_t RandomCoord(size_t min, size_t max);
+size_t GetIndex(size_t x, size_t y, size_t w);
 
 
 #endif // UTILS_H

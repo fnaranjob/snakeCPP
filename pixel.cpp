@@ -1,7 +1,19 @@
 #include "pixel.h"
+#include <iostream>
+#include "utils.h"
 
-Pixel::Pixel(size_t x, size_t y, char c, std::string pc)
-    :x_pos_{x}, y_pos_{y}, display_char_{c}, pixel_color_{pc}
+Pixel::Pixel(size_t x, size_t y, PixelType pt)
+    :x_pos_{x}, y_pos_{y}, p_type_{pt}
 {
 
+}
+
+size_t Pixel::GetX() const{
+    return x_pos_;
+}
+size_t Pixel::GetY() const{
+    return y_pos_;
+}
+PixelType Pixel::GetType() const{
+    return p_type_;
 }

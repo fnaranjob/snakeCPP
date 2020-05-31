@@ -5,6 +5,6 @@
 int main()
 {
     Board b{50,20};
-    b.display();
+    b.Display();
     return 0;
 }
