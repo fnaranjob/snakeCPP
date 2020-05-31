@@ -18,9 +18,9 @@ private:
 
 public:
     Board(size_t w, size_t h);
-    void Display() const;
-    void PlaceFood(size_t x, size_t y);
-    void Reset();
+    void Display_() const;
+    void PlaceFood_(size_t x, size_t y);
+    void Reset_();
 };
 
 #endif // BOARD_H

@@ -21,7 +21,7 @@ Board::Board(size_t w, size_t h)
     }
 }
 
-void Board::Display() const{
+void Board::Display_() const{
     size_t col{1};
     for(const char c: content_){
         if(c==BORDER_CHAR)
