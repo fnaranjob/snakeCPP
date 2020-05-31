@@ -4,6 +4,8 @@
 
 class Snake
 {
+private:
+
 public:
     Snake();
 };

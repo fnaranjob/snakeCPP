@@ -1,8 +1,9 @@
 #include "board.h"
+#include "utils.h"
 #include <iostream>
 
-Board::Board(size_t w, size_t h)
-    :width{w}, height{h}
+Board::Board(size_t w, size_t h, std::string bc)
+    :width{w}, height{h}, border_color{bc}
 {
     char char_to_insert{' '};
     content.reserve(width*height);
@@ -21,7 +22,10 @@ Board::Board(size_t w, size_t h)
 void Board::display() const{
     size_t col{1};
     for(const char c: content){
-        std::cout<<c;
+        if(c==BORDER_CHAR)
+            std::cout<<border_color<<c<<color_codes::RESET;
+        else
+            std::cout<<c;
         if((col++)%width == 0)
             std::cout<<std::endl;
     }
