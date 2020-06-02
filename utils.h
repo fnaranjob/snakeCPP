@@ -20,6 +20,7 @@ namespace color_codes {
 }
 
 enum PixelType:char {SNAKE_BODY_CHAR='o', FOOD_CHAR='@', SNAKE_HEAD_CHAR='*',BORDER_CHAR='X'};
+enum Direction {NONE, UP, DOWN, LEFT, RIGHT};
 const std::string kBorderColor = color_codes::kBlue;
 const std::string kFoodColor = color_codes::kRed;
 
