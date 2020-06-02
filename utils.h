@@ -5,7 +5,9 @@
 #include <stdlib.h>
 #include <time.h>
 
+//********************
 //CONSTANTS
+//********************
 
 namespace color_codes {
     const std::string kReset{"\033[0m"};
@@ -24,8 +26,13 @@ enum Direction {NONE, UP, DOWN, LEFT, RIGHT};
 const std::string kBorderColor = color_codes::kBlue;
 const std::string kFoodColor = color_codes::kRed;
 
+//Initial min distance from the board's border for the snake to appear when created
+const size_t kBorderInitDist = 2;
 
+
+//********************
 //UTILITY FUNCTIONS
+//********************
 
 
 size_t RandomCoord(size_t min, size_t max);
