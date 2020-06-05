@@ -13,6 +13,7 @@ private:
 public:
     Snake(size_t board_w, size_t board_h, Pixel food, size_t init_len);
     bool Update_(Direction dir, bool grow=false); //Returns true if collision occurs after update
+    const std::deque<Pixel> &GetElements_() const;
 };
 
 #endif // SNAKE_H

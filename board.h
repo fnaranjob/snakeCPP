@@ -4,6 +4,7 @@
 #include <vector>
 #include "utils.h"
 #include "pixel.h"
+#include "snake.h"
 
 class Board
 {
@@ -13,8 +14,7 @@ private:
     size_t height_;
     std::vector<char> content_;
     Pixel food_;
-
-    //Snake s;
+    Snake snake_;
 
 public:
     Board(size_t w, size_t h);
