@@ -3,6 +3,7 @@
 #include <iostream>
 
 Snake::Snake(size_t board_w, size_t board_h, Pixel food, size_t init_len)
+    :travel_dir_{NONE}
 {
     //Validate that snake fits board
     if((board_w - 2*kBorderInitDist - 2)<=init_len){
@@ -20,7 +21,7 @@ Snake::Snake(size_t board_w, size_t board_h, Pixel food, size_t init_len)
 
     std::cout<<"min: "<<x_min<<" max: "<<x_max<<" X: "<<head_x<<std::endl;
     //Avoid placing the snake in the same row as the current food position
-    if(head_y==food.GetY()){
+    if(head_y==food.GetY_()){
         if(head_y>y_min)
             head_y--;
         else
@@ -38,10 +39,33 @@ Snake::Snake(size_t board_w, size_t board_h, Pixel food, size_t init_len)
     //}
 }
 
-bool Snake::Update_(Direction dir, bool grow){
-    return true;
+void Snake::Update_(Direction dir, bool grow){
+    auto head=elements_.front();
+    if(dir!=travel_dir_)
+        travel_dir_=dir;
+
+    switch (travel_dir_) {
+    case UP:
+        head.SetPos_(head.GetX_(),head.GetY_()+1);
+        break;
+    case DOWN:
+        head.SetPos_(head.GetX_(),head.GetY_()-1);
+        break;
+    case LEFT:
+        head.SetPos_(head.GetX_()-1,head.GetY_());
+        break;
+    case RIGHT:
+        head.SetPos_(head.GetX_()+1,head.GetY_());
+        break;
+    case NONE:
+        break;
+    }
 }
 
 const std::deque<Pixel> &Snake::GetElements_() const{
     return elements_;
+}
+
+Direction Snake::GetDir_() const{
+    return travel_dir_;
 }

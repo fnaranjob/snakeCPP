@@ -11,7 +11,7 @@ Board::Board(size_t w, size_t h)
 
     for(size_t y=1; y<=height_; ++y){
         for(size_t x=1; x<=width_; ++x ){
-            if(x==food_.GetX() && y==food_.GetY())
+            if(x==food_.GetX_() && y==food_.GetY_())
                 char_to_insert=FOOD_CHAR;
             else if(x==1 || y==1 || x==width_ || y==height_)
                 char_to_insert=BORDER_CHAR;
@@ -24,9 +24,9 @@ Board::Board(size_t w, size_t h)
     size_t i=0;
     for(const auto &pix: snake_.GetElements_()){
         if((i++)==0)
-            content_.at(GetIndex(pix.GetX(),pix.GetY(),width_))=SNAKE_HEAD_CHAR;
+            content_.at(GetIndex(pix.GetX_(),pix.GetY_(),width_))=SNAKE_HEAD_CHAR;
         else
-            content_.at(GetIndex(pix.GetX(),pix.GetY(),width_))=SNAKE_BODY_CHAR;
+            content_.at(GetIndex(pix.GetX_(),pix.GetY_(),width_))=SNAKE_BODY_CHAR;
     }
 
 }
@@ -49,7 +49,7 @@ void Board::Display_() const{
 }
 
 void Board::PlaceFood_(size_t x, size_t y){
-    content_.at(GetIndex(food_.GetX(),food_.GetY(),width_))=' ';
-    food_.SetPos(x,y);
-    content_.at(GetIndex(food_.GetX(),food_.GetY(),width_))=FOOD_CHAR;
+    content_.at(GetIndex(food_.GetX_(),food_.GetY_(),width_))=' ';
+    food_.SetPos_(x,y);
+    content_.at(GetIndex(food_.GetX_(),food_.GetY_(),width_))=FOOD_CHAR;
 }

@@ -12,10 +12,10 @@ private:
     PixelType p_type_;
 public:
     Pixel(size_t x, size_t y, PixelType pt);
-    size_t GetX() const;
-    size_t GetY() const;
-    void SetPos(size_t x, size_t y);
-    PixelType GetType() const;
+    size_t GetX_() const;
+    size_t GetY_() const;
+    void SetPos_(size_t x, size_t y);
+    PixelType GetType_() const;
 };
 
 #endif // PIXEL_H

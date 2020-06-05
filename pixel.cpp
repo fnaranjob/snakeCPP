@@ -8,19 +8,19 @@ Pixel::Pixel(size_t x, size_t y, PixelType pt)
 
 }
 
-size_t Pixel::GetX() const{
+size_t Pixel::GetX_() const{
     return x_pos_;
 }
 
-size_t Pixel::GetY() const{
+size_t Pixel::GetY_() const{
     return y_pos_;
 }
 
-PixelType Pixel::GetType() const{
+PixelType Pixel::GetType_() const{
     return p_type_;
 }
 
-void Pixel::SetPos(size_t x, size_t y){
+void Pixel::SetPos_(size_t x, size_t y){
     x_pos_=x;
     y_pos_=y;
 }

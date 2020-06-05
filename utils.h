@@ -31,7 +31,7 @@ const std::string kSnakeColor = color_codes::kGreen;
 const size_t kBorderInitDist = 2;
 
 //Initial snake length
-const size_t kInitialSnakeLen = 3;
+const size_t kInitialSnakeLen = 7;
 
 //********************
 //UTILITY FUNCTIONS
