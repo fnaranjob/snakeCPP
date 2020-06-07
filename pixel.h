@@ -9,13 +9,13 @@ class Pixel
 private:
     size_t x_pos_;
     size_t y_pos_;
-    PixelType p_type_;
+    constants::PixelType p_type_;
 public:
-    Pixel(size_t x, size_t y, PixelType pt);
+    Pixel(size_t x, size_t y, constants::PixelType pt);
     size_t GetX_() const;
     size_t GetY_() const;
     void SetPos_(size_t x, size_t y);
-    PixelType GetType_() const;
+    constants::PixelType GetType_() const;
 };
 
 #endif // PIXEL_H

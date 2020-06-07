@@ -21,17 +21,21 @@ namespace color_codes {
     const std::string kWhite{"\033[37m"};
 }
 
-enum PixelType:char {SNAKE_BODY_CHAR='o', FOOD_CHAR='@', SNAKE_HEAD_CHAR='x',BORDER_CHAR='X'};
-enum Direction {NONE, UP, DOWN, LEFT, RIGHT};
-const std::string kBorderColor = color_codes::kBlue;
-const std::string kFoodColor = color_codes::kRed;
-const std::string kSnakeColor = color_codes::kGreen;
+namespace constants
+{
+    enum PixelType :char { SNAKE_BODY_CHAR = 'o', FOOD_CHAR = '@', SNAKE_HEAD_CHAR = 'x', BORDER_CHAR = 'X' };
+    enum Direction { NONE, UP, DOWN, LEFT, RIGHT };
+    const std::string kBorderColor = color_codes::kBlue;
+    const std::string kFoodColor = color_codes::kRed;
+    const std::string kSnakeColor = color_codes::kGreen;
 
-//Initial min distance from the board's border for the snake to appear when created
-const size_t kBorderInitDist = 2;
+    //Initial min distance from the board's border for the snake to appear when created
+    const size_t kBorderInitDist = 2;
 
-//Initial snake length
-const size_t kInitialSnakeLen = 7;
+    //Initial snake length
+    const size_t kInitialSnakeLen = 7;
+}
+
 
 //********************
 //UTILITY FUNCTIONS

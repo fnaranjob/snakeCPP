@@ -2,7 +2,7 @@
 #include <iostream>
 #include "utils.h"
 
-Pixel::Pixel(size_t x, size_t y, PixelType pt)
+Pixel::Pixel(size_t x, size_t y, constants::PixelType pt)
     :x_pos_{x}, y_pos_{y}, p_type_{pt}
 {
 
@@ -16,7 +16,7 @@ size_t Pixel::GetY_() const{
     return y_pos_;
 }
 
-PixelType Pixel::GetType_() const{
+constants::PixelType Pixel::GetType_() const{
     return p_type_;
 }
 
