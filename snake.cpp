@@ -3,19 +3,19 @@
 #include <iostream>
 
 Snake::Snake(size_t board_w, size_t board_h, Pixel food, size_t init_len)
-    :travel_dir_{constants::NONE}
+    :travel_dir_{Direction::NONE}
 {
     //Validate that snake fits board
-    if((board_w - 2*constants::kBorderInitDist - 2)<=init_len){
+    if((board_w - 2*kBorderInitDist - 2)<=init_len){
         std::cerr<<"Snake doesn't fit board, can't continue..."<<std::endl;
         exit(EXIT_FAILURE);
     }
 
     //Calculate snake's head initial coordinates
-    size_t x_min = constants::kBorderInitDist + init_len;
-    size_t x_max = board_w - constants::kBorderInitDist -1;
-    size_t y_min = constants::kBorderInitDist + 1;
-    size_t y_max = board_h - constants::kBorderInitDist -1;
+    size_t x_min = kBorderInitDist + init_len;
+    size_t x_max = board_w - kBorderInitDist -1;
+    size_t y_min = kBorderInitDist + 1;
+    size_t y_max = board_h - kBorderInitDist -1;
     size_t head_x = RandomCoord(x_min, x_max);
     size_t head_y = RandomCoord(y_min, y_max);
 
@@ -29,35 +29,32 @@ Snake::Snake(size_t board_w, size_t board_h, Pixel food, size_t init_len)
     }
 
     //Create snake elements
-    elements_.emplace_back(head_x,head_y, constants::SNAKE_HEAD_CHAR);
+    elements_.emplace_back(head_x,head_y, PixelType::SNAKE_HEAD_CHAR);
 
     for(size_t i=0; i<(init_len-1); ++i)
-        elements_.emplace_back(--head_x,head_y, constants::SNAKE_BODY_CHAR);
+        elements_.emplace_back(--head_x,head_y, PixelType::SNAKE_BODY_CHAR);
 
-    //for(const auto &pix: elements_){
-    //    std::cout<<"( "<<pix.GetX()<<", "<<pix.GetY()<<")"<<std::endl;
-    //}
 }
 
-void Snake::Update_(constants::Direction dir, bool grow){
+void Snake::Update_(Direction dir, bool grow){
     auto head=elements_.front();
     if(dir!=travel_dir_)
         travel_dir_=dir;
 
     switch (travel_dir_) {
-    case constants::UP:
+    case Direction::UP:
         head.SetPos_(head.GetX_(),head.GetY_()+1);
         break;
-    case constants::DOWN:
+    case Direction::DOWN:
         head.SetPos_(head.GetX_(),head.GetY_()-1);
         break;
-    case constants::LEFT:
+    case Direction::LEFT:
         head.SetPos_(head.GetX_()-1,head.GetY_());
         break;
-    case constants::RIGHT:
+    case Direction::RIGHT:
         head.SetPos_(head.GetX_()+1,head.GetY_());
         break;
-    case constants::NONE:
+    case Direction::NONE:
         break;
     }
 }
@@ -66,6 +63,6 @@ const std::deque<Pixel> &Snake::GetElements_() const{
     return elements_;
 }
 
-constants::Direction Snake::GetDir_() const{
+Direction Snake::GetDir_() const{
     return travel_dir_;
 }

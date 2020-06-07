@@ -6,7 +6,7 @@
 
 int main()
 {
-    srand(time(NULL)); //used for random coordinate generation
+    srand(static_cast<unsigned int>(time(NULL))); //used for random coordinate generation
     Board b{80,20};
     b.Display_();
 

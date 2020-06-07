@@ -21,10 +21,9 @@ namespace color_codes {
     const std::string kWhite{"\033[37m"};
 }
 
-namespace constants
-{
-    enum PixelType :char { SNAKE_BODY_CHAR = 'o', FOOD_CHAR = '@', SNAKE_HEAD_CHAR = 'x', BORDER_CHAR = 'X' };
-    enum Direction { NONE, UP, DOWN, LEFT, RIGHT };
+
+    enum class PixelType :char { SNAKE_BODY_CHAR = 'o', FOOD_CHAR = '@', SNAKE_HEAD_CHAR = 'x', BORDER_CHAR = 'X', EMPTY = ' ' };
+    enum class Direction :char { NONE, UP, DOWN, LEFT, RIGHT };
     const std::string kBorderColor = color_codes::kBlue;
     const std::string kFoodColor = color_codes::kRed;
     const std::string kSnakeColor = color_codes::kGreen;
@@ -34,7 +33,7 @@ namespace constants
 
     //Initial snake length
     const size_t kInitialSnakeLen = 7;
-}
+
 
 
 //********************

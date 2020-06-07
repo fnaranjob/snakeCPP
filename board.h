@@ -12,7 +12,7 @@ private:
 
     size_t width_;
     size_t height_;
-    std::vector<char> content_;
+    std::vector<PixelType> content_;
     Pixel food_;
     Snake snake_;
 

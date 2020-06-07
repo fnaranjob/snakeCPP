@@ -4,19 +4,19 @@
 #include "pixel.h"
 
 Board::Board(size_t w, size_t h)
-    :width_{w}, height_{h}, food_(RandomCoord(2,w-2),RandomCoord(2,h-2), constants::FOOD_CHAR), snake_(w,h,food_, constants::kInitialSnakeLen)
+    :width_{w}, height_{h}, food_(RandomCoord(2,w-2),RandomCoord(2,h-2), PixelType::FOOD_CHAR), snake_(w,h,food_, kInitialSnakeLen)
 {
-    char char_to_insert{' '};
+    PixelType char_to_insert{PixelType::EMPTY};
     content_.reserve(width_*height_);
 
     for(size_t y=1; y<=height_; ++y){
         for(size_t x=1; x<=width_; ++x ){
             if(x==food_.GetX_() && y==food_.GetY_())
-                char_to_insert= constants::FOOD_CHAR;
+                char_to_insert= PixelType::FOOD_CHAR;
             else if(x==1 || y==1 || x==width_ || y==height_)
-                char_to_insert= constants::BORDER_CHAR;
+                char_to_insert= PixelType::BORDER_CHAR;
             else
-                char_to_insert=' ';
+                char_to_insert= PixelType::EMPTY;
             content_.push_back(char_to_insert);
         }
     }
@@ -24,9 +24,9 @@ Board::Board(size_t w, size_t h)
     size_t i=0;
     for(const auto &pix: snake_.GetElements_()){
         if((i++)==0)
-            content_.at(GetIndex(pix.GetX_(),pix.GetY_(),width_))= constants::SNAKE_HEAD_CHAR;
+            content_.at(GetIndex(pix.GetX_(),pix.GetY_(),width_))= PixelType::SNAKE_HEAD_CHAR;
         else
-            content_.at(GetIndex(pix.GetX_(),pix.GetY_(),width_))= constants::SNAKE_BODY_CHAR;
+            content_.at(GetIndex(pix.GetX_(),pix.GetY_(),width_))= PixelType::SNAKE_BODY_CHAR;
     }
 
 }
@@ -34,24 +34,24 @@ Board::Board(size_t w, size_t h)
 void Board::Display_() const{
     size_t col{1};
     system("cls");
-    for(const char c: content_){
-        if(c== constants::BORDER_CHAR)
-            std::cout<< constants::kBorderColor<<c<<color_codes::kReset;
-        else if(c== constants::FOOD_CHAR)
-            std::cout<< constants::kFoodColor<<c<<color_codes::kReset;
-        else if(c== constants::SNAKE_HEAD_CHAR || c== constants::SNAKE_BODY_CHAR)
-            std::cout<< constants::kSnakeColor<<c<<color_codes::kReset;
+    for(const auto c: content_){
+        if (c == PixelType::BORDER_CHAR)
+            std::cout << kBorderColor << static_cast<char>(c) << color_codes::kReset;
+        else if (c == PixelType::FOOD_CHAR)
+            std::cout << kFoodColor << static_cast<char>(c) << color_codes::kReset;
+        else if (c == PixelType::SNAKE_HEAD_CHAR || c == PixelType::SNAKE_BODY_CHAR)
+            std::cout << kSnakeColor << static_cast<char>(c) << color_codes::kReset;
         else
-            std::cout<<c;
+            std::cout << static_cast<char>(c);
         if((col++)%width_ == 0)
             std::cout<<std::endl;
     }
 }
 
 void Board::PlaceFood_(size_t x, size_t y){
-    content_.at(GetIndex(food_.GetX_(),food_.GetY_(),width_))=' ';
+    content_.at(GetIndex(food_.GetX_(),food_.GetY_(),width_))=PixelType::EMPTY;
     food_.SetPos_(x,y);
-    content_.at(GetIndex(food_.GetX_(),food_.GetY_(),width_))= constants::FOOD_CHAR;
+    content_.at(GetIndex(food_.GetX_(),food_.GetY_(),width_))= PixelType::FOOD_CHAR;
 }
 
 void Board::Reset_()
