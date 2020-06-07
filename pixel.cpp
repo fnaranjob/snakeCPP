@@ -29,3 +29,8 @@ void Pixel::SetPos_(size_t x, size_t y){
     x_pos_=x;
     y_pos_=y;
 }
+
+void Pixel::SetType_(PixelType t)
+{
+    p_type_ = t;
+}

@@ -34,6 +34,7 @@ Board::Board(size_t w, size_t h)
 void Board::Display_() const{
     size_t col{1};
     system("cls");
+
     for(const auto c: content_){
         if (c == PixelType::BORDER_CHAR)
             std::cout << kBorderColor << static_cast<char>(c) << color_codes::kReset;
@@ -52,6 +53,27 @@ void Board::PlaceFood_(size_t x, size_t y){
     content_.at(GetIndex(food_.GetX_(),food_.GetY_(),width_))=PixelType::EMPTY;
     food_.SetPos_(x,y);
     content_.at(GetIndex(food_.GetX_(),food_.GetY_(),width_))= PixelType::FOOD_CHAR;
+}
+
+bool Board::Update_(Direction dir)
+{
+    bool grow = false; 
+
+    if (dir == Direction::NONE)
+        return false; //Snake is not moving, nothing to update
+    
+    auto head = snake_.GetElements_().front();
+    auto tail = snake_.GetElements_().back();
+    content_.at(GetIndex(head.GetX_(), head.GetY_(), width_)) = PixelType::SNAKE_BODY_CHAR;
+    if (!grow)
+        content_.at(GetIndex(tail.GetX_(), tail.GetY_(),width_)) = PixelType::EMPTY;
+    
+    snake_.Update_(dir, grow);
+    
+    head = snake_.GetElements_().front();
+    content_.at(GetIndex(head.GetX_(), head.GetY_(), width_)) = PixelType::SNAKE_HEAD_CHAR;
+
+    return false;
 }
 
 void Board::Reset_()

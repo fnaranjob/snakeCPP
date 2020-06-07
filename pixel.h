@@ -16,6 +16,7 @@ public:
     size_t GetX_() const;
     size_t GetY_() const;
     void SetPos_(size_t x, size_t y);
+    void SetType_(PixelType t);
     PixelType GetType_() const;
 };
 

@@ -20,6 +20,7 @@ public:
     Board(size_t w, size_t h);
     void Display_() const;
     void PlaceFood_(size_t x, size_t y);
+    bool Update_(Direction dir);
     void Reset_();
 };
 

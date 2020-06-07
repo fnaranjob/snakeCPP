@@ -37,26 +37,34 @@ Snake::Snake(size_t board_w, size_t board_h, Pixel food, size_t init_len)
 }
 
 void Snake::Update_(Direction dir, bool grow){
-    auto head=elements_.front();
+
     if(dir!=travel_dir_)
         travel_dir_=dir;
 
+    auto head = elements_.front();
+    size_t head_x = head.GetX_();
+    size_t head_y = head.GetY_();
+    head.SetType_(PixelType::SNAKE_BODY_CHAR);
+
     switch (travel_dir_) {
-    case Direction::UP:
-        head.SetPos_(head.GetX_(),head.GetY_()+1);
-        break;
-    case Direction::DOWN:
-        head.SetPos_(head.GetX_(),head.GetY_()-1);
-        break;
-    case Direction::LEFT:
-        head.SetPos_(head.GetX_()-1,head.GetY_());
-        break;
-    case Direction::RIGHT:
-        head.SetPos_(head.GetX_()+1,head.GetY_());
-        break;
-    case Direction::NONE:
-        break;
+        case Direction::UP:
+            elements_.emplace_front(head_x,head_y - 1, PixelType::SNAKE_HEAD_CHAR);
+            break;
+        case Direction::DOWN:
+            elements_.emplace_front(head_x, head_y + 1, PixelType::SNAKE_HEAD_CHAR);
+            break;
+        case Direction::LEFT:
+            elements_.emplace_front(head_x - 1 , head_y, PixelType::SNAKE_HEAD_CHAR);
+            break;
+        case Direction::RIGHT:
+            elements_.emplace_front(head_x + 1, head_y, PixelType::SNAKE_HEAD_CHAR);
+            break;
+        case Direction::NONE:
+            break;
     }
+    if(!grow)
+        elements_.pop_back();
+
 }
 
 const std::deque<Pixel> &Snake::GetElements_() const{
