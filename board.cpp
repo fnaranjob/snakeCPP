@@ -45,7 +45,7 @@ void Board::PlaceFood_(size_t x, size_t y){
 
 bool Board::Update_(Direction dir)
 {
-    bool grow = true; 
+    bool grow = false; 
 
     if (dir == Direction::NONE)
         return false; //Snake is not moving, nothing to update
