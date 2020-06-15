@@ -42,8 +42,8 @@ void Snake::Update_(Direction dir, bool grow){
         travel_dir_=dir;
 
     auto head = elements_.front();
-    size_t head_x = head.GetX_();
-    size_t head_y = head.GetY_();
+    auto head_x = head.GetX_();
+    auto head_y = head.GetY_();
     head.SetType_(PixelType::SNAKE_BODY_CHAR);
 
     switch (travel_dir_) {

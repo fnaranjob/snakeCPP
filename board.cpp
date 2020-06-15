@@ -9,73 +9,82 @@ Board::Board(size_t w, size_t h)
     PixelType char_to_insert{PixelType::EMPTY};
     content_.reserve(width_*height_);
 
-    for(size_t y=1; y<=height_; ++y){
-        for(size_t x=1; x<=width_; ++x ){
+    for(size_t y=0; y<height_; ++y){
+        for(size_t x=0; x<width_; ++x ){
             if(x==food_.GetX_() && y==food_.GetY_())
                 char_to_insert= PixelType::FOOD_CHAR;
-            else if(x==1 || y==1 || x==width_ || y==height_)
+            else if(x==0 || y==0 || x==width_-1 || y==height_-1)
                 char_to_insert= PixelType::BORDER_CHAR;
             else
                 char_to_insert= PixelType::EMPTY;
-            content_.push_back(char_to_insert);
+            content_.emplace_back(x,y,char_to_insert);
         }
     }
-
-    size_t i=0;
-    for(const auto &pix: snake_.GetElements_()){
-        if((i++)==0)
-            content_.at(GetIndex(pix.GetX_(),pix.GetY_(),width_))= PixelType::SNAKE_HEAD_CHAR;
+    auto snake_elements = snake_.GetElements_();
+    PixelType pix_type;
+    for (auto it = snake_elements.begin(); it != snake_elements.end(); it++) {
+        if ((it) == snake_elements.begin()) 
+            pix_type = PixelType::SNAKE_HEAD_CHAR;
         else
-            content_.at(GetIndex(pix.GetX_(),pix.GetY_(),width_))= PixelType::SNAKE_BODY_CHAR;
+            pix_type = PixelType::SNAKE_BODY_CHAR;
+        auto x = it->GetX_();
+        auto y = it->GetY_();
+        content_.at(GetIndex(x, y, width_)) = Pixel(x,y,pix_type);
     }
 
 }
 
-void Board::Display_() const{
-    size_t col{1};
-    system("cls");
-
-    for(const auto c: content_){
-        if (c == PixelType::BORDER_CHAR)
-            std::cout << kBorderColor << static_cast<char>(c) << color_codes::kReset;
-        else if (c == PixelType::FOOD_CHAR)
-            std::cout << kFoodColor << static_cast<char>(c) << color_codes::kReset;
-        else if (c == PixelType::SNAKE_HEAD_CHAR || c == PixelType::SNAKE_BODY_CHAR)
-            std::cout << kSnakeColor << static_cast<char>(c) << color_codes::kReset;
-        else
-            std::cout << static_cast<char>(c);
-        if((col++)%width_ == 0)
-            std::cout<<std::endl;
-    }
-}
 
 void Board::PlaceFood_(size_t x, size_t y){
-    content_.at(GetIndex(food_.GetX_(),food_.GetY_(),width_))=PixelType::EMPTY;
+    auto initial_x = food_.GetX_();
+    auto initial_y = food_.GetY_();
+    content_.at(GetIndex(initial_x,initial_y,width_))=Pixel(initial_x,initial_y,PixelType::EMPTY);
     food_.SetPos_(x,y);
-    content_.at(GetIndex(food_.GetX_(),food_.GetY_(),width_))= PixelType::FOOD_CHAR;
+    content_.at(GetIndex(x,y,width_))= Pixel(x,y,PixelType::FOOD_CHAR);
 }
 
 bool Board::Update_(Direction dir)
 {
-    bool grow = false; 
+    bool grow = true; 
 
     if (dir == Direction::NONE)
         return false; //Snake is not moving, nothing to update
     
     auto head = snake_.GetElements_().front();
     auto tail = snake_.GetElements_().back();
-    content_.at(GetIndex(head.GetX_(), head.GetY_(), width_)) = PixelType::SNAKE_BODY_CHAR;
+    auto head_x = head.GetX_();
+    auto head_y = head.GetY_();
+    auto tail_x = tail.GetX_();
+    auto tail_y = tail.GetY_();
+
+    content_.at(GetIndex(head_x, head_y, width_)) = Pixel(head_x,head_y,PixelType::SNAKE_BODY_CHAR);
     if (!grow)
-        content_.at(GetIndex(tail.GetX_(), tail.GetY_(),width_)) = PixelType::EMPTY;
+        content_.at(GetIndex(tail_x, tail_y,width_)) = Pixel(tail_x,tail_y,PixelType::EMPTY);
     
     snake_.Update_(dir, grow);
-    
     head = snake_.GetElements_().front();
-    content_.at(GetIndex(head.GetX_(), head.GetY_(), width_)) = PixelType::SNAKE_HEAD_CHAR;
+    head_x = head.GetX_();
+    head_y = head.GetY_();
+    content_.at(GetIndex(head_x, head_y, width_)) = Pixel(head_x,head_y,PixelType::SNAKE_HEAD_CHAR);
 
     return false;
 }
 
 void Board::Reset_()
 {
+}
+
+std::vector<Pixel>& Board::GetContent_()
+{
+    return content_;
+}
+
+size_t Board::GetWidth_() const
+{
+    return width_;
+}
+
+size_t Board::GetHeight_() const
+{
+    return height_;
 }
