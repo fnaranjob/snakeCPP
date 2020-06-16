@@ -18,8 +18,7 @@ private:
 
 public:
     Board(size_t w, size_t h);
-    void PlaceFood_(size_t x, size_t y);
-    bool Update_(Direction dir);
+    bool Update_(Direction dir); //returns true if collision happened
     void Reset_();
     std::vector<Pixel> &GetContent_();
     size_t GetWidth_() const;

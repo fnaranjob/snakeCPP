@@ -2,16 +2,20 @@
 #define __GAME_H__
 #include "olcConsoleGameEngine.h"
 #include "board.h"
+#include <string>
 
 class Game : public olcConsoleGameEngine
 {
 
 private:
 	Board board_;
+	float accum_time_;
 	float update_time_;
 	Direction current_dir_;
+	bool game_over_;
+
 public:
-	Game(size_t width, size_t height) : board_(width, height), update_time_{ 0.0 }, current_dir_{ Direction::NONE } {
+	Game(size_t width, size_t height) : board_(width, height), accum_time_{ 0.0 }, update_time_{ 0.4 },current_dir_{ Direction::NONE } {
 		ConstructConsole(width, height, 10, 10);
 	};
 	void DrawBoard_(){
@@ -27,7 +31,9 @@ public:
 		return true;
 	}
 	virtual bool OnUserUpdate(float fEnlapsedTime) {
-		update_time_ += fEnlapsedTime;
+		accum_time_ += fEnlapsedTime;
+
+		//Input processing
 		if (m_keys[VK_UP].bHeld)
 			current_dir_ = Direction::UP;
 		else if (m_keys[VK_LEFT].bHeld)
@@ -37,10 +43,14 @@ public:
 		else if (m_keys[VK_DOWN].bHeld)
 			current_dir_ = Direction::DOWN;
 
-		if (update_time_ >= 0.2){
-			board_.Update_(current_dir_);
-			DrawBoard_();
-			update_time_ = 0;
+		//Display update
+		if (accum_time_ >= update_time_){
+			game_over_=board_.Update_(current_dir_);
+			if (!game_over_)
+				DrawBoard_();
+			else
+				Fill(1, 1, board_.GetWidth_() - 1, board_.GetHeight_() - 1, 'X');
+			accum_time_ = 0;
 		}
 			
 		return true;

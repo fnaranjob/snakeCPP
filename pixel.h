@@ -18,6 +18,7 @@ public:
     void SetPos_(size_t x, size_t y);
     void SetType_(PixelType t);
     PixelType GetType_() const;
+    bool operator==(Pixel& rhs) const;
 };
 
 #endif // PIXEL_H

@@ -34,22 +34,11 @@ Board::Board(size_t w, size_t h)
 
 }
 
-
-void Board::PlaceFood_(size_t x, size_t y){
-    auto initial_x = food_.GetX_();
-    auto initial_y = food_.GetY_();
-    content_.at(GetIndex(initial_x,initial_y,width_))=Pixel(initial_x,initial_y,PixelType::EMPTY);
-    food_.SetPos_(x,y);
-    content_.at(GetIndex(x,y,width_))= Pixel(x,y,PixelType::FOOD_CHAR);
-}
-
 bool Board::Update_(Direction dir)
 {
-    bool grow = false; 
-
     if (dir == Direction::NONE)
         return false; //Snake is not moving, nothing to update
-    
+
     auto head = snake_.GetElements_().front();
     auto tail = snake_.GetElements_().back();
     auto head_x = head.GetX_();
@@ -57,8 +46,42 @@ bool Board::Update_(Direction dir)
     auto tail_x = tail.GetX_();
     auto tail_y = tail.GetY_();
 
-    content_.at(GetIndex(head_x, head_y, width_)) = Pixel(head_x,head_y,PixelType::SNAKE_BODY_CHAR);
-    if (!grow)
+    Pixel* destination{&head};
+
+    switch (dir) {
+    case Direction::UP:
+        destination = &content_.at(GetIndex(head_x, head_y - 1, width_));
+        break;
+    case Direction::DOWN:
+        destination = &content_.at(GetIndex(head_x, head_y + 1, width_));
+        break;
+    case Direction::LEFT:
+        destination = &content_.at(GetIndex(head_x - 1, head_y, width_));
+        break;
+    case Direction::RIGHT:
+        destination = &content_.at(GetIndex(head_x + 1, head_y, width_));
+        break;
+    case Direction::NONE:
+        break;
+    }
+
+    content_.at(GetIndex(head_x, head_y, width_)) = Pixel(head_x, head_y, PixelType::SNAKE_BODY_CHAR);
+    
+    if (destination->GetType_() == PixelType::SNAKE_BODY_CHAR || destination->GetType_() == PixelType::BORDER_CHAR)
+        return true; //Collision occured
+
+    bool grow{tail==food_};
+    
+    if (grow) {
+        size_t x, y;
+        do {
+            x = RandomCoord(2, width_ - 2);
+            y = RandomCoord(2, height_ - 2);
+            destination = &content_.at(GetIndex(x, y, width_));
+        } while (destination->GetType_() != PixelType::EMPTY);
+        food_.SetPos_(x, y);//move food
+        content_.at(GetIndex(x, y, width_)) = Pixel(x,y,PixelType::FOOD_CHAR);
+    }else
         content_.at(GetIndex(tail_x, tail_y,width_)) = Pixel(tail_x,tail_y,PixelType::EMPTY);
     
     snake_.Update_(dir, grow);

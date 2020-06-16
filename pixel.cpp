@@ -25,6 +25,11 @@ PixelType Pixel::GetType_() const{
     return p_type_;
 }
 
+bool Pixel::operator==(Pixel& rhs) const
+{
+    return p_type_ == rhs.p_type_;
+}
+
 void Pixel::SetPos_(size_t x, size_t y){
     x_pos_=x;
     y_pos_=y;
