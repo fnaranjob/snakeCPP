@@ -3,7 +3,6 @@
 #include <iostream>
 
 Snake::Snake(size_t board_w, size_t board_h, Pixel food, size_t init_len)
-    :travel_dir_{Direction::NONE}
 {
     //Validate that snake fits board
     if((board_w - 2*kBorderInitDist - 2)<=init_len){
@@ -38,15 +37,12 @@ Snake::Snake(size_t board_w, size_t board_h, Pixel food, size_t init_len)
 
 void Snake::Update_(Direction dir, bool grow){
 
-    if(dir!=travel_dir_)
-        travel_dir_=dir;
-
     auto head = elements_.front();
     auto head_x = head.GetX_();
     auto head_y = head.GetY_();
     head.SetType_(PixelType::SNAKE_BODY_CHAR);
 
-    switch (travel_dir_) {
+    switch (dir) {
         case Direction::UP:
             elements_.emplace_front(head_x,head_y - 1, PixelType::SNAKE_HEAD_CHAR);
             break;
@@ -69,8 +65,4 @@ void Snake::Update_(Direction dir, bool grow){
 
 const std::deque<Pixel> &Snake::GetElements_() const{
     return elements_;
-}
-
-Direction Snake::GetDir_() const{
-    return travel_dir_;
 }

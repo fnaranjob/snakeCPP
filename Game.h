@@ -11,11 +11,11 @@ private:
 	Board board_;
 	float accum_time_;
 	float update_time_;
-	Direction current_dir_;
+	Direction travel_dir_;
 	bool game_over_;
 
 public:
-	Game(size_t width, size_t height) : board_(width, height), accum_time_{ 0.0 }, update_time_{ 0.4 },current_dir_{ Direction::NONE } {
+	Game(size_t width, size_t height) : board_(width, height), accum_time_{ 0.0 }, update_time_{ 0.1 },travel_dir_{ Direction::NONE } {
 		ConstructConsole(width, height, 10, 10);
 	};
 	void DrawBoard_(){
@@ -32,20 +32,20 @@ public:
 	}
 	virtual bool OnUserUpdate(float fEnlapsedTime) {
 		accum_time_ += fEnlapsedTime;
-
+		
 		//Input processing
-		if (m_keys[VK_UP].bHeld)
-			current_dir_ = Direction::UP;
-		else if (m_keys[VK_LEFT].bHeld)
-			current_dir_ = Direction::LEFT;
-		else if (m_keys[VK_RIGHT].bHeld)
-			current_dir_ = Direction::RIGHT;
-		else if (m_keys[VK_DOWN].bHeld)
-			current_dir_ = Direction::DOWN;
+		if (m_keys[VK_UP].bHeld && travel_dir_ != Direction::DOWN)
+			travel_dir_ = Direction::UP;
+		else if (m_keys[VK_LEFT].bHeld && travel_dir_ != Direction::RIGHT)
+			travel_dir_ = Direction::LEFT;
+		else if (m_keys[VK_RIGHT].bHeld && travel_dir_ != Direction::LEFT)
+			travel_dir_ = Direction::RIGHT;
+		else if (m_keys[VK_DOWN].bHeld && travel_dir_ != Direction::UP)
+			travel_dir_ = Direction::DOWN;
 
 		//Display update
 		if (accum_time_ >= update_time_){
-			game_over_=board_.Update_(current_dir_);
+			game_over_=board_.Update_(travel_dir_);
 			if (!game_over_)
 				DrawBoard_();
 			else
