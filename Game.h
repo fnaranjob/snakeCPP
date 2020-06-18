@@ -2,7 +2,6 @@
 #define __GAME_H__
 #include "olcConsoleGameEngine.h"
 #include "board.h"
-#include <string>
 
 class Game : public olcConsoleGameEngine
 {
@@ -15,11 +14,11 @@ private:
 	bool game_over_;
 
 public:
-	Game(size_t width, size_t height) : board_(width, height), accum_time_{ 0.0 }, update_time_{ 0.1 },travel_dir_{ Direction::NONE } {
-		ConstructConsole(width, height, 10, 10);
+	Game(int width, int height) : board_(width, height), accum_time_{ 0.0 }, update_time_{ 0.1 },travel_dir_{ Direction::NONE } {
+		ConstructConsole(width, height, 15, 20);
 	};
 	void DrawBoard_(){
-		size_t i{ 0 };
+		int i{ 0 };
 		COLOUR render_color;
 		for (const auto pix : board_.GetContent_()) {
 			render_color = GetColor(pix.GetType_());

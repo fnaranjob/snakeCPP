@@ -1,5 +1,3 @@
-#include <iostream>
-#include <Windows.h>
 #include "board.h"
 #include "utils.h"
 #include "snake.h"
@@ -9,8 +7,8 @@
 int main()
 {
     srand(static_cast<unsigned int>(time(NULL))); //used for random coordinate generation
-    size_t board_width{ 80 };
-    size_t board_height{ 50 };
+    int board_width{ 30 };
+    int board_height{ 30 };
     Game G(board_width, board_height);
     G.Start();
     

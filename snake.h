@@ -10,7 +10,7 @@ class Snake
 private:
     std::deque<Pixel> elements_;
 public:
-    Snake(size_t board_w, size_t board_h, Pixel food, size_t init_len);
+    Snake(int board_w, int board_h, Pixel food, int init_len);
     void Update_(Direction dir, bool grow=false);
     const std::deque<Pixel> &GetElements_() const;
 };

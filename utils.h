@@ -2,7 +2,6 @@
 #define UTILS_H
 
 #include <string>
-#include <stdlib.h>
 #include <time.h>
 
 //********************
@@ -49,10 +48,10 @@
 	};
 
     //Initial min distance from the board's border for the snake to appear when created
-    const size_t kBorderInitDist = 2;
+    const int kBorderInitDist = 2;
 
     //Initial snake length
-    const size_t kInitialSnakeLen = 7;
+    const int kInitialSnakeLen = 7;
 
 
 
@@ -61,8 +60,8 @@
 //********************
 
 
-size_t RandomCoord(size_t min, size_t max);
-size_t GetIndex(size_t x, size_t y, size_t w);
+int RandomCoord(int min, int max);
+int GetIndex(int x, int y, int w);
 COLOUR GetColor(PixelType p_type);
 
 

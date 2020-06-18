@@ -10,19 +10,19 @@ class Board
 {
 private:
 
-    size_t width_;
-    size_t height_;
+    int width_;
+    int height_;
     std::vector<Pixel> content_;
     Pixel food_;
     Snake snake_;
 
 public:
-    Board(size_t w, size_t h);
+    Board(int w, int h);
     bool Update_(Direction dir); //returns true if collision happened
     void Reset_();
     std::vector<Pixel> &GetContent_();
-    size_t GetWidth_() const;
-    size_t GetHeight_() const;
+    int GetWidth_() const;
+    int GetHeight_() const;
 };
 
 #endif // BOARD_H

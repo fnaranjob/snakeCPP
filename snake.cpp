@@ -1,24 +1,20 @@
 #include "snake.h"
-#include <stdlib.h>
-#include <iostream>
 
-Snake::Snake(size_t board_w, size_t board_h, Pixel food, size_t init_len)
+Snake::Snake(int board_w, int board_h, Pixel food, int init_len)
 {
     //Validate that snake fits board
     if((board_w - 2*kBorderInitDist - 2)<=init_len){
-        std::cerr<<"Snake doesn't fit board, can't continue..."<<std::endl;
         exit(EXIT_FAILURE);
     }
 
     //Calculate snake's head initial coordinates
-    size_t x_min = kBorderInitDist + init_len;
-    size_t x_max = board_w - kBorderInitDist -1;
-    size_t y_min = kBorderInitDist + 1;
-    size_t y_max = board_h - kBorderInitDist -1;
-    size_t head_x = RandomCoord(x_min, x_max);
-    size_t head_y = RandomCoord(y_min, y_max);
+    int x_min = kBorderInitDist + init_len;
+    int x_max = board_w - kBorderInitDist -1;
+    int y_min = kBorderInitDist + 1;
+    int y_max = board_h - kBorderInitDist -1;
+    int head_x = RandomCoord(x_min, x_max);
+    int head_y = RandomCoord(y_min, y_max);
 
-    std::cout<<"min: "<<x_min<<" max: "<<x_max<<" X: "<<head_x<<std::endl;
     //Avoid placing the snake in the same row as the current food position
     if(head_y==food.GetY_()){
         if(head_y>y_min)
@@ -30,7 +26,7 @@ Snake::Snake(size_t board_w, size_t board_h, Pixel food, size_t init_len)
     //Create snake elements
     elements_.emplace_back(head_x,head_y, PixelType::SNAKE_HEAD_CHAR);
 
-    for(size_t i=0; i<(init_len-1); ++i)
+    for(int i=0; i<(init_len-1); ++i)
         elements_.emplace_back(--head_x,head_y, PixelType::SNAKE_BODY_CHAR);
 
 }
