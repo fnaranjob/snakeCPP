@@ -21,7 +21,11 @@ public:
 		int i{ 0 };
 		COLOUR render_color;
 		for (const auto pix : board_.GetContent_()) {
-			render_color = GetColor(pix.GetType_());
+			//if food is inside snake, paint snake element with food color
+			if(pix.GetType_()==PixelType::SNAKE_BODY_CHAR && pix.GetX_()==board_.GetFood_().GetX_() && pix.GetY_()==board_.GetFood_().GetY_())
+				render_color = GetColor(PixelType::FOOD_CHAR);
+			else
+				render_color = GetColor(pix.GetType_());
 			Draw(i%board_.GetWidth_(),i/board_.GetWidth_(),static_cast<char>(pix.GetType_()),render_color);
 			i++;
 		};

@@ -23,6 +23,7 @@ public:
     std::vector<Pixel> &GetContent_();
     int GetWidth_() const;
     int GetHeight_() const;
+    Pixel GetFood_() const;
 };
 
 #endif // BOARD_H

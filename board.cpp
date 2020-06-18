@@ -110,3 +110,8 @@ int Board::GetHeight_() const
 {
     return height_;
 }
+
+Pixel Board::GetFood_() const
+{
+    return food_;
+}
