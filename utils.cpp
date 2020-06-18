@@ -6,7 +6,7 @@ int RandomCoord(int min, int max){
 }
 
 int GetIndex(int x, int y, int w){
-    return (y-1)*w+x-1;
+    return y*w+x;
 }
 
 COLOUR GetColor(PixelType p_type)
