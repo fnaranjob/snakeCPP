@@ -45,6 +45,8 @@ public:
 			travel_dir_ = Direction::RIGHT;
 		else if (m_keys[VK_DOWN].bHeld && travel_dir_ != Direction::UP)
 			travel_dir_ = Direction::DOWN;
+		else if (m_keys[VK_SPACE].bHeld)
+			travel_dir_ = Direction::NONE;
 
 		//Display update
 		if (accum_time_ >= update_time_){
