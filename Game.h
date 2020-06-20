@@ -12,11 +12,19 @@ private:
 	float update_time_;
 	Direction travel_dir_;
 	bool game_over_;
+	olcSprite game_over_sprite_;
 
 public:
-	Game(int width, int height) : board_(width, height), accum_time_{ 0.0 }, update_time_{ 0.1 },travel_dir_{ Direction::NONE } {
+	Game(int width, int height) 
+		: board_(width, height), 
+		accum_time_{ 0.0 }, 
+		update_time_{ 0.1 },
+		travel_dir_{ Direction::NONE },
+		game_over_sprite_(width,height)
+	{
 		ConstructConsole(width, height, 15, 20);
 	};
+	
 	void DrawBoard_(){
 		int i{ 0 };
 		COLOUR render_color;
@@ -54,7 +62,8 @@ public:
 			if (!game_over_)
 				DrawBoard_();
 			else
-				Fill(1, 1, board_.GetWidth_() - 1, board_.GetHeight_() - 1, 'X');
+				DrawSprite(0, 0, &game_over_sprite_);
+				//Fill(1, 1, board_.GetWidth_() - 1, board_.GetHeight_() - 1, 'X');
 			accum_time_ = 0;
 		}
 			
